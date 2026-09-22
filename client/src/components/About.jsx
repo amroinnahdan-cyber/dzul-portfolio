@@ -2,13 +2,7 @@ import { useEffect, useRef } from 'react';
 import Reveal from './Reveal.jsx';
 import { SocialIcons } from './Decor.jsx';
 
-/* ═══════════════════════════════════════════════════════════════
-   FOTO PRIBADI — ganti begitu foto tersedia:
-   1. letakkan foto di: client/public/dzul.jpg
-   2. ubah PHOTO = true
-   (kalau false → tampil "slot foto" yang tetap terlihat disengaja)
-   ═══════════════════════════════════════════════════════════════ */
-const PHOTO = false;
+const PHOTO = true; // ✓ foto asli sudah dipasang
 
 const socials = [
   { label: 'GitHub', href: 'https://github.com/amroinnahdan-cyber', icon: SocialIcons.github },
@@ -37,14 +31,12 @@ const facts = [
 ];
 
 /**
- * Tentang — kolom kiri lengket: judul + foto (parallax) + sosial.
- * Kolom kanan: cerita + tabel fakta.
+ * Tentang — kartu foto (parallax) + cerita + tabel fakta.
  */
 export default function About() {
   const imgRef = useRef(null);
   const frameRef = useRef(null);
 
-  // parallax: gambar bergeser halus di dalam bingkainya
   useEffect(() => {
     if (!PHOTO) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -56,7 +48,7 @@ export default function About() {
         const r = frame.getBoundingClientRect();
         if (r.bottom > 0 && r.top < window.innerHeight) {
           const progress = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
-          img.style.transform = `translateY(${progress * -8}%) scale(1.12)`;
+          img.style.transform = `translateY(${progress * -7}%) scale(1.1)`;
         }
       }
       raf = requestAnimationFrame(loop);
@@ -66,46 +58,41 @@ export default function About() {
   }, []);
 
   return (
-    <section id="tentang" className="border-t border-line px-5 py-24 sm:px-6 sm:py-32">
-      <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-[1fr_1.5fr]">
-        {/* kiri — lengket */}
-        <div className="self-start md:sticky md:top-28">
+    <section id="tentang" className="px-5 py-20 sm:px-6 sm:py-28">
+      <div className="mx-auto grid max-w-5xl items-start gap-12 md:grid-cols-[1fr_1.4fr]">
+        {/* kiri — foto */}
+        <div className="md:sticky md:top-28">
           <Reveal>
-            <p className="tech-label">TENTANG</p>
-            <h2 className="mt-5 font-serif text-3xl font-light leading-snug sm:text-4xl">
-              Bukan studio — <br />
-              <span className="italic">cuma saya.</span>
-            </h2>
-          </Reveal>
-
-          {/* foto / slot foto */}
-          <Reveal delay={120}>
-            <div
-              ref={frameRef}
-              className="relative mt-8 aspect-[4/5] max-w-sm overflow-hidden rounded-[36px] border border-line bg-paper2"
-            >
-              {PHOTO ? (
-                <img
-                  ref={imgRef}
-                  src="/dzul.jpg"
-                  alt="Foto Dzul Amroin Nahdan"
-                  className="h-full w-full object-cover will-change-transform"
-                />
-              ) : (
-                <div className="absolute inset-3 grid place-items-center rounded-[28px] border border-dashed border-ink/25 p-6 text-center">
-                  <div>
-                    <span className="font-serif text-3xl font-light italic text-ink3">✦</span>
-                    <p className="tech-label mt-3">SLOT FOTO</p>
-                    <p className="mt-2 text-[13px] leading-relaxed text-ink3">
-                      fotomu akan tampil di sini — kirim ke assistant, sisanya otomatis
-                    </p>
+            <div className="relative">
+              <div
+                ref={frameRef}
+                className="relative aspect-[4/5] max-w-sm overflow-hidden rounded-[36px] border border-line bg-paper2 shadow-[0_30px_80px_rgba(11,18,32,.12)]"
+              >
+                {PHOTO ? (
+                  <img
+                    ref={imgRef}
+                    src="/dzul.jpg"
+                    alt="Foto Dzul Amroin Nahdan"
+                    className="h-full w-full object-cover will-change-transform"
+                  />
+                ) : (
+                  <div className="absolute inset-3 grid place-items-center rounded-[28px] border border-dashed border-ink/25 p-6 text-center">
+                    <p className="tech-label">SLOT FOTO</p>
                   </div>
+                )}
+              </div>
+              {/* chip nama di atas foto */}
+              <div className="absolute bottom-4 left-4 flex items-center gap-2.5 rounded-full border border-line bg-white/90 py-2 pr-5 pl-2 shadow-sm backdrop-blur">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-accent text-sm font-bold text-white">D</span>
+                <div className="leading-tight">
+                  <p className="text-[13px] font-semibold">Dzul Amroin Nahdan</p>
+                  <p className="text-[11px] text-ink3">Frontend Developer</p>
                 </div>
-              )}
+              </div>
             </div>
           </Reveal>
 
-          <Reveal delay={200}>
+          <Reveal delay={150}>
             <div className="mt-6 flex gap-2">
               {socials.map((s) => (
                 <a
@@ -114,7 +101,7 @@ export default function About() {
                   aria-label={s.label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="grid h-10 w-10 place-items-center rounded-full border border-line text-ink2 transition hover:border-ink hover:text-ink"
+                  className="grid h-10 w-10 place-items-center rounded-full border border-line text-ink2 transition hover:border-accent hover:text-accent"
                 >
                   {s.icon}
                 </a>
@@ -125,27 +112,33 @@ export default function About() {
 
         {/* kanan — cerita */}
         <div>
-          <Reveal delay={100}>
-            <p className="text-xl leading-relaxed text-ink2 sm:text-2xl">
-              Saya <b className="font-medium text-ink">Dzul</b>, pelajar SMA yang lagi asyik-asiknya{' '}
+          <Reveal delay={80}>
+            <p className="tech-label">TENTANG — BUKAN STUDIO, CUMA SAYA</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+              Kenalan sama <span className="font-serif font-light italic">Dzul.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={140}>
+            <p className="mt-6 text-lg leading-relaxed text-ink2 sm:text-xl">
+              Pelajar SMA yang lagi asyik-asiknya{' '}
               <span className="font-serif italic text-ink3">ngulik</span> teknologi — dari web development, UI/UX
               design, sampai artificial intelligence.
             </p>
           </Reveal>
-          <Reveal delay={160}>
-            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-ink2 sm:text-base">
+          <Reveal delay={200}>
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-ink2">
               Sehari-hari saya membangun dan memodifikasi website dengan React, Vite, dan Tailwind CSS, lalu
               merancang tampilannya di Figma. Situs ini kumpulan apa yang saya kerjakan — sekalian berbagi proses
               belajarnya. Senang berkenalan! 🤝
             </p>
           </Reveal>
 
-          <div className="mt-12">
+          <div className="mt-10 space-y-3">
             {facts.map((f, i) => (
               <Reveal key={f.label} delay={i * 70}>
-                <div className="grid gap-2 border-t border-line py-6 last:border-b sm:grid-cols-[180px_1fr] sm:gap-6">
-                  <span className="tech-label pt-1">{f.label}</span>
-                  <p className="text-[15px] leading-relaxed text-ink2">{f.value}</p>
+                <div className="rounded-3xl border border-line bg-white p-5 sm:p-6">
+                  <p className="tech-label">{f.label}</p>
+                  <p className="mt-2.5 text-[15px] leading-relaxed text-ink2">{f.value}</p>
                 </div>
               </Reveal>
             ))}

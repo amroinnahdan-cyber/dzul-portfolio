@@ -1,77 +1,87 @@
 import Reveal from './Reveal.jsx';
-import { ArrowUpRight } from './Decor.jsx';
 
 /**
- * Fokus — "core threads" ala Sutera: baris editorial bernomor,
- * bukan grid kartu. Hover: latar berubah + panah muncul.
+ * Keahlian — bento grid ala referensi SaaS: kartu rounded dengan
+ * pastel lembut, satu kartu "sedang dipelajari" yang hidup.
  */
-const THREADS = [
+const BENTO = [
   {
-    num: '01',
-    tag: 'WEB',
-    color: 'bg-bluesoft',
+    span: 'md:col-span-2',
+    bg: 'bg-accentsoft',
+    tag: 'UTAMA',
+    icon: '⚡',
     title: 'Web Development',
-    desc: 'Website modern & interaktif dengan React, Vite, dan Tailwind CSS — cepat, responsif, di semua layar.',
+    desc: 'Website modern & interaktif — cepat, responsif, di semua layar.',
+    stack: ['React', 'Vite', 'Tailwind CSS', 'JavaScript', 'REST API'],
   },
   {
-    num: '02',
+    span: '',
+    bg: 'bg-paper2',
     tag: 'VISUAL',
-    color: 'bg-lavender',
+    icon: '🎨',
     title: 'UI/UX Design',
-    desc: 'Antarmuka bersih yang berpusat pada pengguna — wireframe sampai final design di Figma & Canva.',
+    desc: 'Wireframe → prototype → final design yang berpusat pada pengguna.',
+    stack: ['Figma', 'Canva'],
   },
   {
-    num: '03',
-    tag: 'AI',
-    color: 'bg-peach',
+    span: '',
+    bg: 'bg-lavender',
+    tag: 'EKSPERIMEN',
+    icon: '🤖',
     title: 'AI & Automation',
-    desc: 'AI agents, LLM integration, API & otomasi — dari crypto monitor sampai asisten ala JARVIS.',
+    desc: 'AI agents, LLM API, dan otomasi — dari crypto monitor sampai JARVIS.',
+    stack: ['LLM API', 'Python'],
   },
   {
-    num: '04',
-    tag: 'RISET',
-    color: 'bg-greensf/70',
-    title: 'Eksperimen & Keamanan',
-    desc: 'Cybersecurity, computer vision, IoT — dijelajahi lewat eksperimen dan proyek nyata.',
+    span: 'md:col-span-2',
+    bg: 'bg-paper2',
+    tag: 'SEDANG DIPELAJARI',
+    icon: '🌱',
+    title: 'Currently Learning',
+    desc: 'Area yang lagi saya gali minggu ini — terus bertambah.',
+    stack: ['Cybersecurity', 'Computer Vision', 'IoT', 'Full-stack'],
+    live: true,
   },
 ];
 
 export default function Threads() {
   return (
-    <section id="fokus" className="px-5 py-24 sm:px-6 sm:py-32">
+    <section id="fokus" className="px-5 py-20 sm:px-6 sm:py-28">
       <div className="mx-auto max-w-5xl">
         <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="tech-label">CORE THREADS</p>
-              <h2 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
-                Inti <span className="font-serif font-light italic">kerjaku.</span>
-              </h2>
-            </div>
-            <p className="max-w-xs text-sm text-ink3">Empat area yang paling sering main di kepala saya ↴</p>
+          <div className="text-center">
+            <p className="tech-label">KEAHLIAN</p>
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Apa yang saya <span className="font-serif font-light italic">kerjakan.</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-[15px] text-ink2">
+              Empat area utama — dari yang paling dikuasai sampai yang lagi dipelajari.
+            </p>
           </div>
         </Reveal>
 
-        <div className="mt-14">
-          {THREADS.map((t, i) => (
-            <Reveal key={t.num} delay={i * 60}>
-              <div className="group grid grid-cols-[52px_1fr_auto] items-center gap-4 border-t border-line px-2 py-8 transition-colors duration-300 last:border-b hover:bg-paper2 sm:grid-cols-[80px_1fr_auto] sm:gap-8 sm:px-4 sm:py-10">
-                <span className="font-serif text-lg font-light italic text-ink3 transition group-hover:text-ink sm:text-xl">
-                  {t.num}
-                </span>
-                <div className="min-w-0">
-                  <h3 className="text-2xl font-medium tracking-tight transition-transform duration-300 group-hover:translate-x-2 sm:text-4xl">
-                    {t.title}
-                  </h3>
-                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink2">{t.desc}</p>
+        <div className="mt-12 grid gap-4 md:grid-cols-3">
+          {BENTO.map((b, i) => (
+            <Reveal key={b.title} delay={i * 70} className={b.span}>
+              <div
+                className={`group h-full rounded-[32px] border border-line p-7 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(11,18,32,.08)] ${b.bg}`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-white text-lg shadow-sm">{b.icon}</span>
+                  <span className="tech-label text-[9px]!">{b.tag}</span>
                 </div>
-                <div className="flex items-center gap-4">
-                  <span className={`tech-label hidden rounded-full px-3 py-1.5 text-[9px]! text-ink ${t.color} sm:inline-block`}>
-                    {t.tag}
-                  </span>
-                  <span className="grid h-10 w-10 place-items-center rounded-full border border-line opacity-0 transition duration-300 group-hover:bg-ink group-hover:text-paper sm:group-hover:opacity-100">
-                    <ArrowUpRight size={14} />
-                  </span>
+                <h3 className="mt-5 text-xl font-semibold tracking-tight sm:text-2xl">{b.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink2">{b.desc}</p>
+                <div className="mt-5 flex flex-wrap gap-1.5">
+                  {b.stack.map((s) => (
+                    <span
+                      key={s}
+                      className="rounded-full border border-ink/10 bg-white/70 px-3 py-1.5 text-xs font-medium text-ink2"
+                    >
+                      {s}
+                      {b.live && <span className="ml-1.5 inline-block h-1 w-1 animate-pulse rounded-full bg-accent align-middle" />}
+                    </span>
+                  ))}
                 </div>
               </div>
             </Reveal>

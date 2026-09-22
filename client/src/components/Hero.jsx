@@ -1,149 +1,138 @@
 import { wibGreeting } from '../utils.js';
-import { useEffect, useRef, useState } from 'react';
-import RotatingBadge from './RotatingBadge.jsx';
+import { useEffect, useState } from 'react';
+import { scrollToHash } from '../utils.js';
 
-/* Nama dipecah per huruf biar bisa bereaksi terhadap kursor */
-const LINE1 = [
-  { c: 'D' }, { c: 'Z' }, { c: 'U' }, { c: 'L' }, { c: '✦', accent: true },
-];
-const LINE2 = [
-  { c: 'A' }, { c: 'M' }, { c: 'R', muted: true }, { c: 'O', muted: true },
-  { c: 'I', muted: true }, { c: 'N', muted: true },
-];
+/* --- kartu mockup melayang ala referensi SaaS --- */
 
-function LetterSpan({ item, register }) {
-  const [spinning, setSpinning] = useState(false);
+function CardProject() {
   return (
-    <span
-      ref={register}
-      className={`inline-block will-change-transform transition-colors duration-300 ${item.muted ? 'text-ink3' : ''}`}
-      onClick={
-        item.accent
-          ? () => setSpinning(true)
-          : undefined
-      }
-      onAnimationEnd={() => setSpinning(false)}
-      title={item.accent ? 'klik aku ✦' : undefined}
-      style={{ cursor: item.accent ? 'pointer' : undefined }}
-    >
-      <span className={spinning ? 'spin-pop inline-block' : 'inline-block'}>{item.c}</span>
-    </span>
+    <div className="absolute left-0 top-6 w-56 rounded-3xl border border-line bg-white p-3.5 shadow-[0_20px_60px_rgba(11,18,32,.1)] animate-float sm:w-64">
+      <div className="flex items-center gap-3">
+        <img src="/projects/studio-elevate.png" alt="" className="h-12 w-12 rounded-2xl object-cover" />
+        <div>
+          <p className="text-[13px] font-semibold">Studio Elevate</p>
+          <p className="text-xs text-ink3">Landing page · 2025</p>
+        </div>
+      </div>
+      <div className="mt-3 flex gap-1.5">
+        <span className="rounded-full bg-accentsoft px-2.5 py-1 text-[10px] font-medium text-accent">React</span>
+        <span className="rounded-full bg-paper2 px-2.5 py-1 text-[10px] font-medium text-ink2">UI/UX</span>
+      </div>
+    </div>
+  );
+}
+
+function CardStat() {
+  return (
+    <div className="absolute right-0 top-36 w-48 rounded-3xl border border-line bg-white p-4 shadow-[0_20px_60px_rgba(11,18,32,.1)] animate-float-late sm:top-44 sm:w-56">
+      <p className="tech-label text-[9px]!">AKTIVITAS MINGGU INI</p>
+      <div className="mt-3 flex h-16 items-end gap-1.5">
+        {[38, 62, 45, 80, 56, 92, 70].map((h, i) => (
+          <div
+            key={i}
+            className={`flex-1 rounded-t-lg ${i === 5 ? 'bg-accent' : 'bg-accentsoft'}`}
+            style={{ height: `${h}%` }}
+          />
+        ))}
+      </div>
+      <p className="mt-2.5 text-[13px] font-semibold">
+        6 proyek <span className="font-normal text-ink3">selesai ✦</span>
+      </p>
+    </div>
+  );
+}
+
+function CardChat() {
+  return (
+    <div className="absolute bottom-0 left-4 w-52 rounded-3xl border border-line bg-white p-4 shadow-[0_20px_60px_rgba(11,18,32,.1)] animate-float sm:left-10">
+      <div className="flex items-center gap-2">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+        </span>
+        <p className="text-xs font-medium text-ink2">Terbuka untuk proyek</p>
+      </div>
+      <p className="mt-2.5 rounded-2xl rounded-bl-md bg-paper2 px-3 py-2 text-xs leading-relaxed text-ink2">
+        "Halo! Bisa bantu bikin website?" 👋
+      </p>
+    </div>
   );
 }
 
 /**
- * Hero — nama raksasa per huruf yang mengangkat mendekati kursor,
- * mask-reveal per baris, sapaan sesuai jam WIB.
+ * Hero — clean SaaS ala referensi: kiri teks + CTA pill,
+ * kanan kolase kartu UI melayang.
  */
 export default function Hero() {
-  const letterRefs = useRef([]);
-  const wrapRef = useRef(null);
   const [greet, setGreet] = useState('');
-
   useEffect(() => {
     setGreet(wibGreeting());
     const id = setInterval(() => setGreet(wibGreeting()), 60_000);
     return () => clearInterval(id);
   }, []);
 
-  // interaksi huruf ↔ kursor (desktop saja)
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (window.matchMedia('(pointer: coarse)').matches) return;
-
-    const letters = letterRefs.current.filter(Boolean);
-    const state = letters.map(() => ({ t: 0, c: 0 }));
-
-    let mx = -9999;
-    let my = -9999;
-    let raf;
-
-    const onMove = (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-    };
-    const onLeave = () => {
-      mx = -9999;
-      my = -9999;
-    };
-
-    const loop = () => {
-      letters.forEach((el, i) => {
-        const r = el.getBoundingClientRect();
-        const cx = r.left + r.width / 2;
-        const cy = r.top + r.height / 2;
-        const d = Math.hypot(mx - cx, my - cy);
-        const p = Math.max(0, 1 - d / 240);
-        state[i].t = p;
-        state[i].c += (state[i].t - state[i].c) * 0.14;
-        const lift = state[i].c * -16;
-        const scale = 1 + state[i].c * 0.1;
-        el.style.transform = `translateY(${lift}px) scale(${scale})`;
-      });
-      raf = requestAnimationFrame(loop);
-    };
-
-    const wrap = wrapRef.current;
-    window.addEventListener('mousemove', onMove, { passive: true });
-    wrap?.addEventListener('mouseleave', onLeave);
-    loop();
-    return () => {
-      window.removeEventListener('mousemove', onMove);
-      wrap?.removeEventListener('mouseleave', onLeave);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  let idx = 0;
-  const reg = (el) => letterRefs.current[idx++] = el;
-
   return (
-    <section id="beranda" className="flex min-h-[100svh] flex-col justify-between px-5 pt-24 pb-6 sm:px-6">
-      {/* baris atas */}
-      <div className="flex items-center justify-between">
-        <span className="tech-label">PORTOFOLIO /26</span>
-        <span className="tech-label">INDONESIA, ID 🇮🇩</span>
-      </div>
-
-      {/* nama raksasa */}
-      <div ref={wrapRef} className="mt-10">
-        <h1 className="select-none font-sans text-[17.5vw] leading-[.94] font-semibold tracking-[-.02em] uppercase sm:text-[16vw]">
-          <span className="mask-line d1">
-            <span className="flex">
-              {LINE1.map((item, i) => (
-                <LetterSpan key={i} item={item} register={reg} />
-              ))}
+    <section id="beranda" className="bg-glow px-5 pt-32 pb-16 sm:px-6 sm:pt-40 sm:pb-20">
+      <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.15fr_1fr]">
+        {/* kiri — teks */}
+        <div>
+          <div className="mask-line d1">
+            <span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-[13px] font-medium text-ink2 shadow-sm">
+                <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
+                {greet || 'Halo!'} — pelajar SMA, Indonesia 🇮🇩
+              </span>
             </span>
-          </span>
-          <span className="mask-line d2">
-            <span className="flex">
-              {LINE2.map((item, i) => (
-                <LetterSpan key={i} item={item} register={reg} />
-              ))}
-            </span>
-          </span>
-        </h1>
+          </div>
 
-        {/* baris bawah: sapaan + intro + badge */}
-        <div className="mask-line d3">
-          <span className="block">
-            <div className="mt-8 flex flex-wrap items-end justify-between gap-6 sm:mt-10">
-              <div className="max-w-md">
-                {greet && (
-                  <p className="mb-2 inline-flex items-center gap-2 text-sm text-ink2">
-                    <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-peach" />
-                    {greet}
-                  </p>
-                )}
-                <p className="text-[15px] leading-relaxed text-ink2 sm:text-base">
-                  Pelajar SMA yang membangun <b className="font-medium text-ink">web</b>, merancang{' '}
-                  <b className="font-medium text-ink">pengalaman</b>, dan mengeksplorasi{' '}
-                  <b className="font-medium text-ink">AI</b> — satu proyek kecil setiap minggu.
-                </p>
-              </div>
-              <RotatingBadge />
-            </div>
-          </span>
+          <h1 className="mask-line d2 mt-6">
+            <span className="block text-5xl leading-[1.05] font-semibold tracking-tight sm:text-6xl xl:text-7xl">
+              Web yang <span className="text-accent">rapi</span>,
+              <br />
+              desain yang <span className="font-serif font-light italic">nyaman.</span>
+            </span>
+          </h1>
+
+          <p className="mask-line d3 mt-6">
+            <span className="block max-w-md text-[15px] leading-relaxed text-ink2 sm:text-base">
+              Saya <b className="font-medium text-ink">Dzul Amroin Nahdan</b> — membangun{' '}
+              <b className="font-medium text-ink">web</b>, merancang{' '}
+              <b className="font-medium text-ink">pengalaman</b>, dan mengeksplorasi{' '}
+              <b className="font-medium text-ink">AI</b>. Satu proyek kecil setiap minggu.
+            </span>
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => scrollToHash('#proyek')}
+              className="rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-white shadow-[0_10px_30px_rgba(47,107,255,.35)] transition hover:-translate-y-0.5 hover:bg-accent2"
+            >
+              Lihat Proyek ↓
+            </button>
+            <button
+              onClick={() => scrollToHash('#kontak')}
+              className="rounded-full border border-line bg-white px-7 py-3.5 text-sm font-medium transition hover:border-ink"
+            >
+              Hubungi Saya
+            </button>
+          </div>
+
+          {/* chips keahlian */}
+          <div className="mt-10 flex flex-wrap gap-2">
+            {['Frontend Developer', 'UI/UX Enthusiast', 'AI Learner'].map((c) => (
+              <span key={c} className="rounded-full bg-paper2 px-4 py-2 text-xs font-medium text-ink2">
+                {c}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* kanan — kolase kartu melayang */}
+        <div className="relative mx-auto h-[420px] w-full max-w-sm sm:h-[460px]">
+          <div className="absolute inset-0 rounded-[48px] bg-accentsoft/60 blur-2xl" aria-hidden="true" />
+          <CardProject />
+          <CardStat />
+          <CardChat />
         </div>
       </div>
     </section>

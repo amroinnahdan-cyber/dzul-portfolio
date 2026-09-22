@@ -21,7 +21,7 @@ function useJakartaTime() {
 }
 
 /**
- * Footer — blok gelap rounded: CTA raksasa + sapaan & jam Jakarta live.
+ * Footer — kartu gelap rounded di atas halaman terang.
  */
 export default function Footer() {
   const time = useJakartaTime();
@@ -33,43 +33,39 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="rounded-t-[44px] bg-black1 px-5 pt-20 pb-7 text-paper sm:px-8">
-      <div className="mx-auto max-w-5xl">
-        <p className="tech-label text-paper/40!">PUNYA PROYEK DI KEPALA?</p>
+    <footer className="px-4 pt-8 pb-4 sm:px-5">
+      <div className="mx-auto max-w-6xl rounded-[40px] bg-black1 px-6 pt-16 pb-6 text-paper sm:px-12">
+        <p className="tech-label text-white/40!">PUNYA PROYEK DI KEPALA?</p>
 
         <a
           href="mailto:amroin.nahdan@gmail.com"
-          className="group mt-8 block font-sans text-[12.5vw] leading-[.95] font-semibold tracking-tight uppercase transition-colors duration-300 hover:text-peach sm:text-[7.5vw]"
+          className="group mt-6 block text-4xl leading-[1.05] font-semibold tracking-tight transition-colors duration-300 hover:text-accent2 sm:text-6xl"
         >
-          Mari bekerja
-          <br />
-          sama <span className="inline-block transition-transform duration-300 group-hover:rotate-45">↗</span>
+          Mari bekerja sama{' '}
+          <span className="inline-block transition-transform duration-300 group-hover:rotate-45">↗</span>
         </a>
 
-        {/* baris bawah */}
-        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-darkline pt-6 text-[13px] text-paper/50">
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-darkline pt-6 text-[13px] text-white/50">
           <span>© 2026 Dzul Amroin Nahdan</span>
-
           <span className="tabular-nums">
-            {greet} <span className="text-paper/25">·</span> JAKARTA — {time} WIB
+            {greet} <span className="text-white/25">·</span> JAKARTA — {time} WIB
           </span>
-
           <div className="flex items-center gap-4">
-            <a href="https://github.com/amroinnahdan-cyber" target="_blank" rel="noopener noreferrer" className="transition hover:text-paper">
+            <a href="https://github.com/amroinnahdan-cyber" target="_blank" rel="noopener noreferrer" className="transition hover:text-white">
               GitHub
             </a>
-            <a href="https://instagram.com/dee.zull" target="_blank" rel="noopener noreferrer" className="transition hover:text-paper">
+            <a href="https://instagram.com/dee.zull" target="_blank" rel="noopener noreferrer" className="transition hover:text-white">
               Instagram
             </a>
-            <button onClick={() => scrollToHash('#beranda')} className="transition hover:text-paper">
+            <button onClick={() => scrollToHash('#beranda')} className="transition hover:text-white">
               ke atas ↑
             </button>
           </div>
         </div>
 
-        <div className="mt-5 flex items-center justify-between text-[12px] text-paper/30">
+        <div className="mt-4 flex items-center justify-between text-[12px] text-white/30">
           <span>dibangun dengan React, Tailwind &amp; rasa penasaran.</span>
-          <Link to="/admin" className="transition hover:text-paper">
+          <Link to="/admin" className="transition hover:text-white">
             /admin
           </Link>
         </div>

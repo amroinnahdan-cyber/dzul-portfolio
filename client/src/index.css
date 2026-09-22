@@ -9,30 +9,33 @@
 
 @import "tailwindcss";
 
-/* ============ TOKENS ============ */
+/* ============ TOKENS — clean SaaS ala referensi Pinterest ============ */
 @theme {
-  /* Kombinasi: Sutera × Snellenberg — warm off-white, ink pekat, satu aksen peach */
-  --color-paper: #f3f1ed;
-  --color-paper2: #eae7e1;
-  --color-ink: #141414;
-  --color-ink2: #4a4a4a;
-  --color-ink3: #a3a09a;
-  --color-line: rgba(20, 20, 20, 0.14);
-  --color-black1: #141414;
-  --color-black2: #1e1e1c;
-  --color-darkline: rgba(243, 241, 237, 0.16);
+  --color-paper: #ffffff;
+  --color-paper2: #f5f7fb;
+  --color-ink: #0b1220;
+  --color-ink2: #46536a;
+  --color-ink3: #93a0b4;
+  --color-line: rgba(11, 18, 32, 0.1);
+  --color-black1: #0e1526;
+  --color-black2: #1a2338;
+  --color-darkline: rgba(255, 255, 255, 0.14);
 
-  --color-peach: #ffa796;
-  --color-lavender: #c9c1ff;
-  --color-pinksoft: #f9ccdd;
-  --color-bluesoft: #bcd4fd;
-  --color-greensf: #91b394;
+  --color-accent: #2f6bff;
+  --color-accent2: #6c9bff;
+  --color-accentsoft: #e8f0ff;
+
+  --color-peach: #ffd9cf;
+  --color-lavender: #e3ddff;
+  --color-pinksoft: #ffdfec;
+  --color-bluesoft: #d8e7ff;
+  --color-greensf: #cde7cf;
 
   /* nama lama (dipakai Admin) → dipetakan */
-  --color-gold: #ffa796;
-  --color-goldbright: #ffa796;
-  --color-golddim: #f9ccdd;
-  --color-goldsoft: #fdeee9;
+  --color-gold: #2f6bff;
+  --color-goldbright: #2f6bff;
+  --color-golddim: #d8e7ff;
+  --color-goldsoft: #eef4ff;
 
   --font-sans: "Instrument Sans", system-ui, sans-serif;
   --font-serif: "Bitter", Georgia, serif;
@@ -41,6 +44,7 @@
   --animate-marquee: marquee 30s linear infinite;
   --animate-spin-slow: rot 14s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
+  --animate-float-late: float 8s ease-in-out 1.2s infinite;
 
   @keyframes marquee {
     to { transform: translateX(-50%); }
@@ -63,25 +67,21 @@ body {
   overflow-x: clip;
 }
 ::selection {
-  background: var(--color-peach);
-  color: var(--color-ink);
+  background: var(--color-accent);
+  color: #fff;
 }
 
-/* tekstur noise halus di atas segalanya (sangat subtle) */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* glow biru lembut di latar atas */
+.bg-glow {
+  background:
+    radial-gradient(640px 340px at 82% 4%, rgba(47, 107, 255, 0.1), transparent 65%),
+    radial-gradient(520px 300px at 8% 16%, rgba(108, 155, 255, 0.08), transparent 60%);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal-word { opacity: 1 !important; transform: none !important; transition: none !important; }
   .mask-line > span { animation: none !important; transform: none !important; }
-  .animate-marquee, .animate-spin-slow, .animate-float { animation: none !important; }
+  .animate-marquee, .animate-spin-slow, .animate-float, .animate-float-late { animation: none !important; }
 }
 
 /* ============ REVEAL ============ */
@@ -94,8 +94,6 @@ body::after {
   opacity: 1;
   transform: none;
 }
-
-/* reveal kata-per-kata (manifesto) */
 .reveal-word {
   display: inline-block;
   opacity: 0;
@@ -142,8 +140,8 @@ body::after {
 
 /* ============ FORM INPUT ============ */
 .input {
-  @apply w-full rounded-[24px] border border-line bg-transparent px-5 py-3.5 text-[15px] text-ink outline-none transition
-    placeholder:text-ink3 focus:border-ink;
+  @apply w-full rounded-2xl border border-line bg-paper2 px-5 py-3.5 text-[15px] text-ink outline-none transition
+    placeholder:text-ink3 focus:border-accent focus:bg-paper;
 }
 .input-error {
   @apply border-red-400 focus:border-red-500;
@@ -152,7 +150,7 @@ body::after {
 /* ============ SCROLLBAR KUSTOM ============ */
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-ink) var(--color-paper2);
+  scrollbar-color: var(--color-accent) var(--color-paper2);
 }
 ::-webkit-scrollbar {
   width: 10px;
@@ -161,7 +159,7 @@ html {
   background: var(--color-paper2);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-ink);
+  background: var(--color-accent);
   border-radius: 8px;
   border: 2px solid var(--color-paper2);
 }

@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Marquee — pita teks besar. Kecepatan & kemiringan bereaksi
- * terhadap kecepatan scroll (ala Dennis Snellenberg).
+ * Marquee — pita teks besar, kecepatan & kemiringan mengikuti scroll.
  */
 const items = ['web', 'design', 'ai', 'eksperimen'];
 
@@ -11,8 +10,8 @@ function Group() {
     <div className="flex shrink-0 items-center">
       {items.map((w) => (
         <span key={w} className="flex items-center whitespace-nowrap">
-          <span className="px-6 font-serif text-4xl font-light italic sm:px-10 sm:text-6xl">{w}</span>
-          <span className="text-2xl text-peach sm:text-3xl">✦</span>
+          <span className="px-6 text-3xl font-semibold tracking-tight text-ink/80 uppercase sm:px-10 sm:text-5xl">{w}</span>
+          <span className="text-2xl text-accent sm:text-3xl">✦</span>
         </span>
       ))}
     </div>

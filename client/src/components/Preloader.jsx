@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Preloader — layar pemuatan dengan persentase, ala Sutera/Snellenberg.
+ * Preloader — layar pemuatan dengan persentase (aksen biru).
  */
 export default function Preloader() {
   const [progress, setProgress] = useState(0);
@@ -37,9 +37,9 @@ export default function Preloader() {
     >
       <div className="flex flex-col items-center gap-4">
         <span className="tech-label">PORTOFOLIO — 2026</span>
-        <span className="font-serif text-7xl font-light tabular-nums">{progress}%</span>
-        <span className="mt-1 h-px w-44 bg-line">
-          <span className="block h-full bg-ink transition-[width] duration-100" style={{ width: `${progress}%` }} />
+        <span className="font-serif text-7xl font-light tabular-nums text-accent">{progress}%</span>
+        <span className="mt-1 h-1 w-44 overflow-hidden rounded-full bg-paper2">
+          <span className="block h-full rounded-full bg-accent transition-[width] duration-100" style={{ width: `${progress}%` }} />
         </span>
       </div>
     </div>

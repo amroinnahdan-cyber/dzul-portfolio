@@ -146,7 +146,7 @@ export default function ProjectModal({ project, index, onClose }) {
               href={project.repo_url || GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-paper transition hover:bg-black2"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-medium text-white shadow-[0_10px_30px_rgba(47,107,255,.3)] transition hover:bg-accent2"
             >
               Lihat Kode <ArrowUpRight size={14} />
             </a>
