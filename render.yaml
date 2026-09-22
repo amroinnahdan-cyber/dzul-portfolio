@@ -1,0 +1,17 @@
+# Deploy backend (Express + SQLite) ke Render.com — gratis.
+# Frontend-nya terpisah di Vercel (lihat README bagian Deploy).
+services:
+  - type: web
+    name: dzul-portfolio-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: ADMIN_PASSWORD
+        sync: false          # isi manual di dashboard Render
+      - key: SECRET
+        generateValue: true
+      - key: PORT
+        value: 3001

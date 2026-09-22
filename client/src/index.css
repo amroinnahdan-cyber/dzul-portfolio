@@ -1,0 +1,150 @@
+/* ============ FONTS (self-hosted) ============ */
+@font-face { font-family: 'Instrument Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/instrument-400.woff2') format('woff2'); }
+@font-face { font-family: 'Instrument Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/instrument-500.woff2') format('woff2'); }
+@font-face { font-family: 'Instrument Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/instrument-600.woff2') format('woff2'); }
+@font-face { font-family: 'Bitter'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/bitter-300.woff2') format('woff2'); }
+@font-face { font-family: 'Bitter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/bitter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Bitter'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/bitter-500.woff2') format('woff2'); }
+@font-face { font-family: 'Bruno Ace SC'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/brunoace-400.woff2') format('woff2'); }
+
+@import "tailwindcss";
+
+/* ============ TOKENS ============ */
+@theme {
+  /* Kombinasi: Sutera × Snellenberg — warm off-white, ink pekat, satu aksen peach */
+  --color-paper: #f3f1ed;
+  --color-paper2: #eae7e1;
+  --color-ink: #141414;
+  --color-ink2: #4a4a4a;
+  --color-ink3: #a3a09a;
+  --color-line: rgba(20, 20, 20, 0.14);
+  --color-black1: #141414;
+  --color-black2: #1e1e1c;
+  --color-darkline: rgba(243, 241, 237, 0.16);
+
+  --color-peach: #ffa796;
+  --color-lavender: #c9c1ff;
+  --color-pinksoft: #f9ccdd;
+  --color-bluesoft: #bcd4fd;
+  --color-greensf: #91b394;
+
+  /* nama lama (dipakai Admin) → dipetakan */
+  --color-gold: #ffa796;
+  --color-goldbright: #ffa796;
+  --color-golddim: #f9ccdd;
+  --color-goldsoft: #fdeee9;
+
+  --font-sans: "Instrument Sans", system-ui, sans-serif;
+  --font-serif: "Bitter", Georgia, serif;
+  --font-tech: "Bruno Ace SC", monospace;
+
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-spin-slow: rot 14s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  @keyframes rot {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+/* ============ BASE ============ */
+html {
+  scroll-padding-top: 96px;
+}
+body {
+  @apply bg-paper text-ink font-sans antialiased leading-relaxed;
+  overflow-x: clip;
+}
+::selection {
+  background: var(--color-peach);
+  color: var(--color-ink);
+}
+
+/* tekstur noise halus di atas segalanya (sangat subtle) */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-word { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .mask-line > span { animation: none !important; transform: none !important; }
+  .animate-marquee, .animate-spin-slow, .animate-float { animation: none !important; }
+}
+
+/* ============ REVEAL ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* reveal kata-per-kata (manifesto) */
+.reveal-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.9em);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.is-visible .reveal-word {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============ HERO MASK REVEAL ============ */
+.mask-line { overflow: hidden; display: block; }
+.mask-line > span {
+  display: block;
+  transform: translateY(112%);
+  animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.mask-line.d1 > span { animation-delay: 1.45s; }
+.mask-line.d2 > span { animation-delay: 1.58s; }
+.mask-line.d3 > span { animation-delay: 1.71s; }
+@keyframes rise {
+  to { transform: none; }
+}
+
+/* ============ LABEL TECHY ============ */
+.tech-label {
+  font-family: var(--font-tech);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink3);
+}
+
+/* ============ PRELOADER ============ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: var(--color-paper);
+  display: grid;
+  place-items: center;
+}
+
+/* ============ FORM INPUT ============ */
+.input {
+  @apply w-full rounded-[24px] border border-line bg-transparent px-5 py-3.5 text-[15px] text-ink outline-none transition
+    placeholder:text-ink3 focus:border-ink;
+}
+.input-error {
+  @apply border-red-400 focus:border-red-500;
+}

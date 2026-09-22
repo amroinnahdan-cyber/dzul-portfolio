@@ -1,0 +1,15 @@
+{
+  "name": "dzul-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portofolio Dzul Amroin Nahdan — React + Tailwind (client) & Express + SQLite (server)",
+  "scripts": {
+    "setup": "npm install && npm --prefix server install && npm --prefix client install",
+    "dev": "concurrently -n server,client -c blue,green \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "build": "npm --prefix client run build",
+    "start": "npm --prefix server run start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

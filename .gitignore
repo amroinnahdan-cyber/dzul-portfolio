@@ -1,0 +1,13 @@
+# dependensi & build
+node_modules/
+dist/
+
+# database lokal & rahasia
+server/data/
+.env
+.env.*
+*.db
+
+# sistem
+*.log
+.DS_Store
