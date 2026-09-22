@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { scrollToHash } from '../utils.js';
+import { scrollToHash, wibGreeting } from '../utils.js';
 
 function useJakartaTime() {
   const [time, setTime] = useState('');
@@ -21,10 +21,16 @@ function useJakartaTime() {
 }
 
 /**
- * Footer — blok gelap rounded dengan CTA raksasa + jam Jakarta live.
+ * Footer — blok gelap rounded: CTA raksasa + sapaan & jam Jakarta live.
  */
 export default function Footer() {
   const time = useJakartaTime();
+  const [greet, setGreet] = useState('');
+  useEffect(() => {
+    setGreet(wibGreeting());
+    const id = setInterval(() => setGreet(wibGreeting()), 60_000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <footer className="rounded-t-[44px] bg-black1 px-5 pt-20 pb-7 text-paper sm:px-8">
@@ -45,7 +51,7 @@ export default function Footer() {
           <span>© 2026 Dzul Amroin Nahdan</span>
 
           <span className="tabular-nums">
-            JAKARTA — {time} WIB
+            {greet} <span className="text-paper/25">·</span> JAKARTA — {time} WIB
           </span>
 
           <div className="flex items-center gap-4">

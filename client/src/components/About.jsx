@@ -1,5 +1,14 @@
+import { useEffect, useRef } from 'react';
 import Reveal from './Reveal.jsx';
 import { SocialIcons } from './Decor.jsx';
+
+/* ═══════════════════════════════════════════════════════════════
+   FOTO PRIBADI — ganti begitu foto tersedia:
+   1. letakkan foto di: client/public/dzul.jpg
+   2. ubah PHOTO = true
+   (kalau false → tampil "slot foto" yang tetap terlihat disengaja)
+   ═══════════════════════════════════════════════════════════════ */
+const PHOTO = false;
 
 const socials = [
   { label: 'GitHub', href: 'https://github.com/amroinnahdan-cyber', icon: SocialIcons.github },
@@ -28,10 +37,34 @@ const facts = [
 ];
 
 /**
- * Tentang — "Not a studio — just me" ala Sutera.
- * Kolom kiri lengket, kolom kanan cerita + tabel fakta.
+ * Tentang — kolom kiri lengket: judul + foto (parallax) + sosial.
+ * Kolom kanan: cerita + tabel fakta.
  */
 export default function About() {
+  const imgRef = useRef(null);
+  const frameRef = useRef(null);
+
+  // parallax: gambar bergeser halus di dalam bingkainya
+  useEffect(() => {
+    if (!PHOTO) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf;
+    const loop = () => {
+      const frame = frameRef.current;
+      const img = imgRef.current;
+      if (frame && img) {
+        const r = frame.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < window.innerHeight) {
+          const progress = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
+          img.style.transform = `translateY(${progress * -8}%) scale(1.12)`;
+        }
+      }
+      raf = requestAnimationFrame(loop);
+    };
+    loop();
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   return (
     <section id="tentang" className="border-t border-line px-5 py-24 sm:px-6 sm:py-32">
       <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-[1fr_1.5fr]">
@@ -43,6 +76,36 @@ export default function About() {
               Bukan studio — <br />
               <span className="italic">cuma saya.</span>
             </h2>
+          </Reveal>
+
+          {/* foto / slot foto */}
+          <Reveal delay={120}>
+            <div
+              ref={frameRef}
+              className="relative mt-8 aspect-[4/5] max-w-sm overflow-hidden rounded-[36px] border border-line bg-paper2"
+            >
+              {PHOTO ? (
+                <img
+                  ref={imgRef}
+                  src="/dzul.jpg"
+                  alt="Foto Dzul Amroin Nahdan"
+                  className="h-full w-full object-cover will-change-transform"
+                />
+              ) : (
+                <div className="absolute inset-3 grid place-items-center rounded-[28px] border border-dashed border-ink/25 p-6 text-center">
+                  <div>
+                    <span className="font-serif text-3xl font-light italic text-ink3">✦</span>
+                    <p className="tech-label mt-3">SLOT FOTO</p>
+                    <p className="mt-2 text-[13px] leading-relaxed text-ink3">
+                      fotomu akan tampil di sini — kirim ke assistant, sisanya otomatis
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </Reveal>
+
+          <Reveal delay={200}>
             <div className="mt-6 flex gap-2">
               {socials.map((s) => (
                 <a

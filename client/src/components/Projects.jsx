@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Reveal from './Reveal.jsx';
+import ProjectModal from './ProjectModal.jsx';
 import { fetchProjects } from '../api.js';
 import { fallbackProjects } from '../data/fallbackProjects.js';
 import { ArrowUpRight } from './Decor.jsx';
@@ -18,13 +19,14 @@ const COVERS = {
 
 /**
  * Proyek — daftar baris besar ala Snellenberg:
- * hover di desktop memunculkan gambar preview yang mengikuti kursor.
+ * desktop: gambar melayang mengikuti kursor · klik baris → modal detail.
  */
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fromApi, setFromApi] = useState(true);
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState(null); // baris yang di-hover (desktop)
+  const [open, setOpen] = useState(null); // modal detail
   const floatRef = useRef(null);
 
   useEffect(() => {
@@ -59,7 +61,7 @@ export default function Projects() {
                 Proyek &amp; <span className="font-serif font-light italic">eksperimen.</span>
               </h2>
             </div>
-            <p className="max-w-xs text-sm text-ink3">Seru menjelajahi — klik untuk lihat kodenya ↴</p>
+            <p className="max-w-xs text-sm text-ink3">Klik barisnya untuk baca cerita di baliknya ↴</p>
           </div>
         </Reveal>
 
@@ -85,25 +87,30 @@ export default function Projects() {
             {projects.map((p, i) => (
               <Reveal key={p.id} delay={Math.min(i, 3) * 60}>
                 <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setOpen(i)}
+                  onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setOpen(i)}
                   onMouseEnter={() => setActive(i)}
                   onMouseLeave={() => setActive(null)}
-                  className="group grid grid-cols-[auto_1fr_auto] items-center gap-4 border-t border-line px-2 py-7 transition-colors duration-300 last:border-b hover:bg-paper2/70 sm:gap-7 sm:px-4 sm:py-9"
+                  className="group grid cursor-pointer grid-cols-[auto_72px_1fr_auto] items-center gap-4 border-t border-line px-2 py-6 transition-colors duration-300 last:border-b hover:bg-paper2/70 sm:gap-7 sm:px-4 sm:py-9 lg:grid-cols-[auto_1fr_auto]"
                 >
                   <span className="w-8 shrink-0 font-serif text-lg font-light italic text-ink3 sm:w-12 sm:text-xl">
                     {String(i + 1).padStart(2, '0')}
                   </span>
 
-                  {/* thumbnail kecil (mobile/tablet) */}
+                  {/* thumbnail (mobile/tablet — desktop pakai gambar melayang) */}
                   <img
                     src={COVERS[p.title] || '/projects/studio-elevate.png'}
                     alt=""
                     aria-hidden="true"
-                    className="hidden h-16 w-16 rounded-3xl object-cover sm:block lg:hidden"
+                    className="h-[72px] w-[72px] rounded-[24px] object-cover lg:hidden"
                   />
 
                   <div className="min-w-0">
-                    <h3 className="text-xl font-medium leading-tight tracking-tight transition-transform duration-300 group-hover:translate-x-2 sm:text-4xl">
+                    <h3 className="text-lg font-medium leading-tight tracking-tight transition-transform duration-300 group-hover:translate-x-2 sm:text-4xl">
                       {p.title}
+                      <span className="ml-2 hidden align-middle text-sm text-ink3 sm:inline">— lihat detail</span>
                     </h3>
                     <p className="mt-1.5 line-clamp-2 max-w-xl text-[13px] leading-relaxed text-ink2 sm:text-sm">
                       {p.description}
@@ -118,22 +125,28 @@ export default function Projects() {
                   </div>
 
                   <div className="flex shrink-0 flex-col items-end gap-2.5">
-                    <a
-                      href={p.repo_url || GITHUB_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Kode ${p.title}`}
-                      className="grid h-11 w-11 place-items-center rounded-full border border-line transition duration-300 group-hover:bg-ink group-hover:text-paper"
-                    >
+                    <span className="grid h-11 w-11 place-items-center rounded-full border border-line transition duration-300 group-hover:bg-ink group-hover:text-paper">
                       <ArrowUpRight size={15} />
-                    </a>
+                    </span>
                     <div className="flex items-center gap-3 text-xs sm:text-sm">
                       {p.demo_url && (
-                        <a href={p.demo_url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-ink3">
+                        <a
+                          href={p.demo_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="underline underline-offset-4 hover:text-ink3"
+                        >
                           Live ↗
                         </a>
                       )}
-                      <a href={p.repo_url || GITHUB_URL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-ink3">
+                      <a
+                        href={p.repo_url || GITHUB_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="underline underline-offset-4 hover:text-ink3"
+                      >
                         Kode ↗
                       </a>
                     </div>
@@ -148,6 +161,10 @@ export default function Projects() {
           <p className="mt-8 text-center text-sm text-ink3">* data cadangan — backend belum terhubung</p>
         )}
       </div>
+
+      {open !== null && projects[open] && (
+        <ProjectModal project={projects[open]} index={open} onClose={() => setOpen(null)} />
+      )}
     </section>
   );
 }

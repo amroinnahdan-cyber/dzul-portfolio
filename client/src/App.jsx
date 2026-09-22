@@ -3,6 +3,7 @@ import Lenis from 'lenis';
 import { useEffect } from 'react';
 import Preloader from './components/Preloader.jsx';
 import CustomCursor from './components/CustomCursor.jsx';
+import ScrollProgress from './components/ScrollProgress.jsx';
 import Home from './pages/Home.jsx';
 import Admin from './pages/Admin.jsx';
 
@@ -29,6 +30,7 @@ export default function App() {
     <>
       <Preloader />
       <CustomCursor />
+      <ScrollProgress />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<Admin />} />

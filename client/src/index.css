@@ -148,3 +148,54 @@ body::after {
 .input-error {
   @apply border-red-400 focus:border-red-500;
 }
+
+/* ============ SCROLLBAR KUSTOM ============ */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink) var(--color-paper2);
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink);
+  border-radius: 8px;
+  border: 2px solid var(--color-paper2);
+}
+
+/* ============ EASTER EGG ✦ ============ */
+@keyframes spin-pop {
+  0% { transform: rotate(0) scale(1); }
+  50% { transform: rotate(180deg) scale(1.35); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+.spin-pop {
+  display: inline-block;
+  animation: spin-pop 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============ MODAL ============ */
+.modal-backdrop {
+  animation: fade-in 0.3s ease both;
+}
+.modal-panel {
+  animation: slide-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop,
+  .modal-panel {
+    animation: none;
+  }
+}
