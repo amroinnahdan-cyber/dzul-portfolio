@@ -114,7 +114,7 @@ export default function About() {
         <div>
           <Reveal delay={80}>
             <p className="tech-label">TENTANG — BUKAN STUDIO, CUMA SAYA</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h2 className="font-display mt-4 text-3xl font-medium tracking-[-.01em] sm:text-4xl">
               Kenalan sama <span className="text-accent">Dzul.</span>
             </h2>
           </Reveal>
