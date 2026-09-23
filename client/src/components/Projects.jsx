@@ -46,7 +46,7 @@ export default function Projects() {
           <div className="text-center">
             <p className="tech-label">PROYEK TERPILIH (06)</p>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Proyek &amp; <span className="font-serif font-light italic">eksperimen.</span>
+              Proyek &amp; <span className="text-accent">eksperimen.</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[15px] text-ink2">
               Klik kartunya untuk baca cerita di baliknya ↴
@@ -86,7 +86,7 @@ export default function Projects() {
                   <div className="flex flex-1 flex-col px-3 pt-4 pb-2">
                     <div className="flex items-baseline justify-between gap-2">
                       <h3 className="text-lg font-semibold leading-snug tracking-tight">{p.title}</h3>
-                      <span className="shrink-0 font-serif text-sm font-light text-ink3">
+                      <span className="shrink-0 text-sm font-semibold text-ink3/70">
                         {String(i + 1).padStart(2, '0')}
                       </span>
                     </div>

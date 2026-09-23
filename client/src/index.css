@@ -37,9 +37,9 @@
   --color-golddim: #d8e7ff;
   --color-goldsoft: #eef4ff;
 
-  --font-sans: "Instrument Sans", system-ui, sans-serif;
-  --font-serif: "Bitter", Georgia, serif;
-  --font-tech: "Bruno Ace SC", monospace;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-serif: "Plus Jakarta Sans", system-ui, sans-serif; /* serif dihapus — sisa class lama aman */
+  --font-tech: "Plus Jakarta Sans", system-ui, sans-serif;
 
   --animate-marquee: marquee 30s linear infinite;
   --animate-spin-slow: rot 14s linear infinite;

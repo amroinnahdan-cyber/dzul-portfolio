@@ -86,10 +86,10 @@ export default function Hero() {
           </div>
 
           <h1 className="mask-line d2 mt-6">
-            <span className="block text-5xl leading-[1.05] font-semibold tracking-tight sm:text-6xl xl:text-7xl">
+            <span className="block text-5xl leading-[1.05] font-extrabold tracking-[-.035em] sm:text-6xl xl:text-7xl">
               Web yang <span className="text-accent">rapi</span>,
               <br />
-              desain yang <span className="font-serif font-light italic">nyaman.</span>
+              desain yang <span className="text-accent">nyaman.</span>
             </span>
           </h1>
 

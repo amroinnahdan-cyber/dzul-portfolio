@@ -41,7 +41,7 @@ export default function ContactSection() {
             <p className="tech-label">KONTAK — MARI TERHUBUNG</p>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
               Punya ide? <br />
-              <span className="font-serif font-light italic">Mari bikin.</span>
+              <span className="text-accent">Mari bikin.</span>
             </h2>
             <p className="mt-5 max-w-sm text-[15px] leading-relaxed text-ink2">
               Untuk proyek sekolah, kolaborasi, atau sekadar diskusi soal web &amp; AI — semua jawaban saya bales.

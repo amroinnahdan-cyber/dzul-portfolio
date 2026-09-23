@@ -115,13 +115,13 @@ export default function About() {
           <Reveal delay={80}>
             <p className="tech-label">TENTANG — BUKAN STUDIO, CUMA SAYA</p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Kenalan sama <span className="font-serif font-light italic">Dzul.</span>
+              Kenalan sama <span className="text-accent">Dzul.</span>
             </h2>
           </Reveal>
           <Reveal delay={140}>
             <p className="mt-6 text-lg leading-relaxed text-ink2 sm:text-xl">
               Pelajar SMA yang lagi asyik-asiknya{' '}
-              <span className="font-serif italic text-ink3">ngulik</span> teknologi — dari web development, UI/UX
+              <span className="font-medium text-ink">ngulik</span> teknologi — dari web development, UI/UX
               design, sampai artificial intelligence.
             </p>
           </Reveal>

@@ -18,7 +18,7 @@ export default function RotatingBadge({ href = '#tentang', text = 'SCROLL KE BAW
         <defs>
           <path id="badge-circle" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" fill="none" />
         </defs>
-        <text className="fill-ink3" style={{ fontSize: '8px', letterSpacing: '2.1px', fontFamily: 'Bruno Ace SC, monospace' }}>
+        <text className="fill-ink3" style={{ fontSize: '8px', letterSpacing: '2.1px', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
           <textPath href="#badge-circle">{text}</textPath>
         </text>
       </svg>

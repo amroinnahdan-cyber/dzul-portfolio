@@ -52,7 +52,7 @@ export default function Threads() {
           <div className="text-center">
             <p className="tech-label">KEAHLIAN</p>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Apa yang saya <span className="font-serif font-light italic">kerjakan.</span>
+              Apa yang saya <span className="text-accent">kerjakan.</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[15px] text-ink2">
               Empat area utama — dari yang paling dikuasai sampai yang lagi dipelajari.

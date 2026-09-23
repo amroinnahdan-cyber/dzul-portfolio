@@ -29,7 +29,7 @@ export default function Manifesto() {
           text="Saya bikin website yang seru — cepat, rapi, dan beneran kepakai orang."
         />
         <WordReveal
-          className="mt-6 max-w-xl font-serif text-lg font-light italic text-ink2 sm:text-xl"
+          className="mt-6 max-w-xl text-base font-medium text-ink2 sm:text-lg"
           text="bukan sekadar tampilan bagus, tapi ada maknanya."
         />
       </div>
