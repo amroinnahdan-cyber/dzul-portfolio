@@ -110,6 +110,15 @@ export default function About() {
               ))}
             </div>
           </Reveal>
+          <Reveal delay={220}>
+            <a
+              href="/cv-dzul.pdf"
+              download
+              className="mt-3 flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-white transition hover:bg-black2 sm:max-w-sm"
+            >
+              Unduh CV (PDF) ↓
+            </a>
+          </Reveal>
         </div>
 
         {/* kanan — cerita */}

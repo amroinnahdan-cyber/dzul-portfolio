@@ -34,6 +34,21 @@ export default function Manifesto() {
           className="mt-6 max-w-xl text-base font-medium text-ink2 sm:text-lg"
           text="bukan sekadar tampilan bagus, tapi ada maknanya."
         />
+
+        {/* statistik — angka nyata */}
+        <div className="mt-12 grid grid-cols-2 gap-6 border-t border-ink/10 pt-8 sm:grid-cols-4">
+          {[
+            ['6+', 'proyek dibangun'],
+            ['10+', 'tools dikuasai'],
+            ['3', 'tahun ngulik'],
+            ['\u221e', 'rasa penasaran'],
+          ].map(([num, label]) => (
+            <div key={label}>
+              <p className="font-display text-4xl font-medium tracking-tight sm:text-5xl">{num}</p>
+              <p className="tech-label mt-1.5">{label}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

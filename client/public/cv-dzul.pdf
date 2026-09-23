@@ -1,0 +1,64 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 1890 >>
+stream
+0.184 0.42 1 rg 0 702 612 90 re f
+1 1 1 rg
+BT /F2 24 Tf 48 748 Td (DZUL AMROIN NAHDAN) Tj ET
+BT /F1 11 Tf 48 724 Td (Frontend Developer  |  UI/UX Enthusiast  |  AI Learner) Tj ET
+0 0 0 rg
+0.8 w
+48 624 m 564 624 l S
+BT /F2 10 Tf 48 668 Td (KONTAK) Tj ET
+BT /F1 10 Tf 48 652 Td (amroin.nahdan@gmail.com   -   +62 822-9922-5876   -   instagram: @dee.zull) Tj ET
+BT /F1 10 Tf 48 638 Td (github: github.com/amroinnahdan-cyber) Tj ET
+BT /F2 10 Tf 48 600 Td (PROFIL) Tj ET
+BT /F1 10 Tf 48 584 Td (Pelajar SMA yang membangun web, merancang pengalaman, dan mengeksplorasi AI.) Tj ET
+BT /F1 10 Tf 48 570 Td (Satu proyek kecil setiap minggu - dari landing page sampai asisten AI.) Tj ET
+BT /F2 10 Tf 48 540 Td (KEAHLIAN) Tj ET
+BT /F1 10 Tf 48 524 Td (Frontend : React, Vite, Tailwind CSS, JavaScript, HTML5, CSS3) Tj ET
+BT /F1 10 Tf 48 510 Td (Design   : Figma, Canva, wireframe, prototype, UI/UX) Tj ET
+BT /F1 10 Tf 48 496 Td (Lainnya  : LLM API, automation, Git & GitHub, REST API, Vercel) Tj ET
+BT /F2 10 Tf 48 466 Td (PROYEK TERPILIH) Tj ET
+BT /F1 10 Tf 48 450 Td (Studio Elevate       - landing page company profile, skor Lighthouse 95+) Tj ET
+BT /F1 10 Tf 48 434 Td (OMEN Crypto Monitor  - dashboard harga crypto real-time \(REST API + charts\)) Tj ET
+BT /F1 10 Tf 48 418 Td (God's Eye View       - deteksi objek dari kamera dengan computer vision) Tj ET
+BT /F1 10 Tf 48 402 Td (MARK-XLVI / JARVIS   - asisten AI: perintah suara, LLM, otomasi) Tj ET
+BT /F1 10 Tf 48 386 Td (AI & Cybersecurity   - eksperimen OWASP, hardening Linux, write-up) Tj ET
+BT /F1 10 Tf 48 370 Td (Portofolio ini       - full-stack: React + Express + SQLite) Tj ET
+BT /F2 10 Tf 48 340 Td (PENDIDIKAN) Tj ET
+BT /F1 10 Tf 48 324 Td (Pelajar SMA - fokus belajar full-stack development & AI engineering) Tj ET
+0.45 0.45 0.45 rg
+BT /F1 8 Tf 48 48 Td (Diperbarui 2026 - versi interaktif ada di situs portofolio) Tj ET
+0 0 0 rg
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2337
+%%EOF
