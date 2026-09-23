@@ -10,7 +10,7 @@ export default function Motto() {
       <Reveal>
         <div className="mx-auto max-w-5xl overflow-hidden rounded-[40px] bg-gradient-to-br from-accent to-accent2 px-6 py-16 text-center text-white sm:px-14 sm:py-24">
           <p className="tech-label text-white/60!">MOTTO</p>
-          <p className="mx-auto mt-6 max-w-2xl text-3xl leading-[1.15] font-semibold tracking-tight sm:text-5xl">
+          <p className="font-display mx-auto mt-6 max-w-2xl text-3xl leading-[1.1] font-medium sm:text-5xl">
             Masa depan tidak kita tunggu — ia kita <span className="text-blue-100 underline decoration-white/40 decoration-4 underline-offset-8">bangun.</span>
           </p>
           <button

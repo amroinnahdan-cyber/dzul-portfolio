@@ -39,7 +39,7 @@ export default function Footer() {
 
         <a
           href="mailto:amroin.nahdan@gmail.com"
-          className="group mt-6 block text-4xl leading-[1.05] font-semibold tracking-tight transition-colors duration-300 hover:text-accent2 sm:text-6xl"
+          className="font-display group mt-6 block text-4xl leading-[1.02] font-medium tracking-[-.01em] transition-colors duration-300 hover:text-accent2 sm:text-6xl"
         >
           Mari bekerja sama{' '}
           <span className="inline-block transition-transform duration-300 group-hover:rotate-45">↗</span>
@@ -47,7 +47,7 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-darkline pt-6 text-[13px] text-white/50">
           <span>© 2026 Dzul Amroin Nahdan</span>
-          <span className="tabular-nums">
+          <span className="font-mono text-[12px]">
             {greet} <span className="text-white/25">·</span> JAKARTA — {time} WIB
           </span>
           <div className="flex items-center gap-4">

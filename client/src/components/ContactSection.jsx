@@ -39,7 +39,7 @@ export default function ContactSection() {
         <Reveal>
           <div>
             <p className="tech-label">KONTAK — MARI TERHUBUNG</p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+            <h2 className="font-display mt-4 text-4xl font-medium tracking-[-.01em] sm:text-5xl">
               Punya ide? <br />
               <span className="text-accent">Mari bikin.</span>
             </h2>

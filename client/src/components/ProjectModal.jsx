@@ -114,7 +114,7 @@ export default function ProjectModal({ project, index, onClose }) {
 
         <div className="px-6 pb-10 sm:px-10 sm:pb-12">
           <p className="tech-label">PROYEK {String(index + 1).padStart(2, '0')} / 06</p>
-          <h3 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
+          <h3 className="font-display mt-3 text-3xl font-medium sm:text-5xl">
             {project.title} <span className="text-ink3">— detail.</span>
           </h3>
 

@@ -10,7 +10,7 @@ function Group() {
     <div className="flex shrink-0 items-center">
       {items.map((w) => (
         <span key={w} className="flex items-center whitespace-nowrap">
-          <span className="px-6 text-3xl font-semibold tracking-tight text-ink/80 uppercase sm:px-10 sm:text-5xl">{w}</span>
+          <span className="font-display px-6 text-3xl font-medium text-ink/80 uppercase sm:px-10 sm:text-5xl">{w}</span>
           <span className="text-2xl text-accent sm:text-3xl">✦</span>
         </span>
       ))}

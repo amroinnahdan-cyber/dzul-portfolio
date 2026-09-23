@@ -1,11 +1,18 @@
-/* ============ FONTS (self-hosted) ============ */
-@font-face { font-family: 'Instrument Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/instrument-400.woff2') format('woff2'); }
-@font-face { font-family: 'Instrument Sans'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/instrument-500.woff2') format('woff2'); }
-@font-face { font-family: 'Instrument Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/instrument-600.woff2') format('woff2'); }
-@font-face { font-family: 'Bitter'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/bitter-300.woff2') format('woff2'); }
-@font-face { font-family: 'Bitter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/bitter-400.woff2') format('woff2'); }
-@font-face { font-family: 'Bitter'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/bitter-500.woff2') format('woff2'); }
-@font-face { font-family: 'Bruno Ace SC'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/brunoace-400.woff2') format('woff2'); }
+/* ============ FONTS (self-hosted) — sistem 3 suara ============ */
+/* Display: Clash Display (Fontshare) · Reading: Plus Jakarta Sans · Machine: JetBrains Mono */
+@font-face { font-family: 'Clash Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/clash-400.woff2') format('woff2'); }
+@font-face { font-family: 'Clash Display'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/clash-500.woff2') format('woff2'); }
+@font-face { font-family: 'Clash Display'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/clash-600.woff2') format('woff2'); }
+@font-face { font-family: 'Clash Display'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/clash-700.woff2') format('woff2'); }
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('/fonts/pjs-var.woff2') format('woff2');
+}
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/jbmono-400.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/jbmono-500.woff2') format('woff2'); }
 
 @import "tailwindcss";
 
@@ -31,15 +38,15 @@
   --color-bluesoft: #d8e7ff;
   --color-greensf: #cde7cf;
 
-  /* nama lama (dipakai Admin) → dipetakan */
   --color-gold: #2f6bff;
   --color-goldbright: #2f6bff;
   --color-golddim: #d8e7ff;
   --color-goldsoft: #eef4ff;
 
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-serif: "Plus Jakarta Sans", system-ui, sans-serif; /* serif dihapus — sisa class lama aman */
-  --font-tech: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Clash Display", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-serif: "Clash Display", system-ui, sans-serif; /* legacy — tak lagi dipakai komponen */
 
   --animate-marquee: marquee 30s linear infinite;
   --animate-spin-slow: rot 14s linear infinite;
@@ -71,7 +78,6 @@ body {
   color: #fff;
 }
 
-/* glow biru lembut di latar atas */
 .bg-glow {
   background:
     radial-gradient(640px 340px at 82% 4%, rgba(47, 107, 255, 0.1), transparent 65%),
@@ -119,11 +125,12 @@ body {
   to { transform: none; }
 }
 
-/* ============ LABEL TECHY ============ */
+/* ============ LABEL KECIL (mono — machine voice) ============ */
 .tech-label {
-  font-family: var(--font-tech);
+  font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.18em;
+  font-weight: 400;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-ink3);
 }
@@ -147,53 +154,32 @@ body {
   @apply border-red-400 focus:border-red-500;
 }
 
-/* ============ SCROLLBAR KUSTOM ============ */
+/* ============ SCROLLBAR ============ */
 html {
   scrollbar-width: thin;
   scrollbar-color: var(--color-accent) var(--color-paper2);
 }
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-paper2);
-}
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-paper2); }
 ::-webkit-scrollbar-thumb {
   background: var(--color-accent);
   border-radius: 8px;
   border: 2px solid var(--color-paper2);
 }
 
-/* ============ EASTER EGG ✦ ============ */
+/* ============ EASTER EGG ============ */
 @keyframes spin-pop {
   0% { transform: rotate(0) scale(1); }
   50% { transform: rotate(180deg) scale(1.35); }
   100% { transform: rotate(360deg) scale(1); }
 }
-.spin-pop {
-  display: inline-block;
-  animation: spin-pop 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
+.spin-pop { display: inline-block; animation: spin-pop 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
 
 /* ============ MODAL ============ */
-.modal-backdrop {
-  animation: fade-in 0.3s ease both;
-}
-.modal-panel {
-  animation: slide-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes fade-in {
-  from { opacity: 0; }
-}
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(48px);
-  }
-}
+.modal-backdrop { animation: fade-in 0.3s ease both; }
+.modal-panel { animation: slide-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes slide-up { from { opacity: 0; transform: translateY(48px); } }
 @media (prefers-reduced-motion: reduce) {
-  .modal-backdrop,
-  .modal-panel {
-    animation: none;
-  }
+  .modal-backdrop, .modal-panel { animation: none; }
 }

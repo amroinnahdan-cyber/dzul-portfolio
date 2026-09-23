@@ -25,7 +25,7 @@ export default function Manifesto() {
       <div className="mx-auto max-w-5xl rounded-[40px] bg-accentsoft px-6 py-16 sm:px-14 sm:py-24">
         <p className="tech-label">SEBUAH PERNYATAAN</p>
         <WordReveal
-          className="mt-8 text-3xl leading-[1.18] font-semibold tracking-tight sm:text-5xl"
+          className="font-display mt-8 text-3xl leading-[1.12] font-medium sm:text-5xl"
           text="Saya bikin website yang seru — cepat, rapi, dan beneran kepakai orang."
         />
         <WordReveal
