@@ -73,7 +73,6 @@ export default function Projects() {
                   className="group relative flex h-full cursor-pointer flex-col rounded-[28px] border border-line bg-white p-3 transition duration-300 odd:-rotate-[1.3deg] even:rotate-[1.1deg] hover:-translate-y-1.5 hover:rotate-0 hover:shadow-[0_28px_70px_rgba(11,18,32,.1)]"
                   >
                   <Pin className="absolute -top-3 left-1/2 z-10 w-7 -translate-x-1/2" />
-                >
                   <div className="relative overflow-hidden rounded-[20px] bg-paper2">
                     <img
                       src={COVERS[p.title] || '/projects/studio-elevate.png'}
