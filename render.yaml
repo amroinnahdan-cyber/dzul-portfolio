@@ -13,5 +13,7 @@ services:
         sync: false          # isi manual di dashboard Render
       - key: SECRET
         generateValue: true
+      - key: CORS_ORIGIN            # domain frontend Vercel, pisahkan dengan koma
+        sync: false
       - key: PORT
         value: 3001

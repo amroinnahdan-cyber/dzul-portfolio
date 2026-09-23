@@ -37,7 +37,24 @@ const SECRET = process.env.SECRET || 'dev-secret-ganti-di-produksi';
 const TOKEN_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 hari
 
 const app = express();
-app.use(cors());
+// CORS: dibatasi ke origin yang diizinkan via env CORS_ORIGIN
+// (pisahkan beberapa domain dengan koma). Tanpa env → izinkan semua (dev).
+const allowedOrigins = (process.env.CORS_ORIGIN || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin(origin, cb) {
+      if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+        return cb(null, true);
+      }
+      // Jangan lempar error (biar tidak 500) — cukup tolak header CORS.
+      cb(null, false);
+    },
+  })
+);
 app.use(express.json({ limit: '100kb' }));
 
 // ============ AUTH (HMAC token sederhana) ============
@@ -186,5 +203,6 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ API server berjalan di http://localhost:${PORT}`);
   console.log(`   Admin password: ${ADMIN_PASSWORD === 'admin123' ? 'admin123 (DEFAULT — ganti via env!)' : '(dari env) ✓'}`);
+  console.log(`   CORS origin   : ${allowedOrigins.length ? allowedOrigins.join(', ') : '(semua — set CORS_ORIGIN di produksi!)'}`);
   if (existsSync(clientDist)) console.log(`   Menyajikan frontend dari ${clientDist}`);
 });
