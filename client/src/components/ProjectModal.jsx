@@ -135,7 +135,7 @@ export default function ProjectModal({ project, index, onClose }) {
           {/* cerita */}
           <div className="mt-7 space-y-4 text-[15px] leading-relaxed text-ink2 sm:text-base">
             <p>{project.description}</p>
-            {d.body.map((p, i) => (
+            {(d.body ?? []).map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>

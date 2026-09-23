@@ -30,7 +30,14 @@ export default function Projects() {
   useEffect(() => {
     fetchProjects()
       .then((res) => {
-        setProjects(res.data);
+        // Kalau backend tidak terhubung (mis. VITE_API_URL kosong di produksi),
+        // SPA rewrite bisa membalas 200 dengan HTML — jadi validasi dulu datanya.
+        if (Array.isArray(res?.data) && res.data.length > 0) {
+          setProjects(res.data);
+        } else {
+          setProjects(fallbackProjects);
+          setFromApi(false);
+        }
         setLoading(false);
       })
       .catch(() => {

@@ -388,7 +388,7 @@ function ProjectsTab({ token, onAuthError }) {
                   <span className="ml-2 text-xs text-ink3">#{p.id} · {p.category} · {p.year}</span>
                   <p className="mt-1 line-clamp-2 text-sm text-ink2">{p.description}</p>
                   <div className="mt-2 flex flex-wrap gap-1.5">
-                    {p.tags.map((t) => (
+                    {(Array.isArray(p.tags) ? p.tags : []).map((t) => (
                       <span key={t} className="rounded-full border border-line px-2.5 py-0.5 text-[11px] text-ink2">{t}</span>
                     ))}
                   </div>
