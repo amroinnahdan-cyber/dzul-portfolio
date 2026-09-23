@@ -1,5 +1,4 @@
-/* ============ FONTS (self-hosted) — sistem 3 suara ============ */
-/* Display: Clash Display (Fontshare) · Reading: Plus Jakarta Sans · Machine: JetBrains Mono */
+/* ============ FONTS (self-hosted) — sistem 3 suara + script ============ */
 @font-face { font-family: 'Clash Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/clash-400.woff2') format('woff2'); }
 @font-face { font-family: 'Clash Display'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/clash-500.woff2') format('woff2'); }
 @font-face { font-family: 'Clash Display'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/clash-600.woff2') format('woff2'); }
@@ -13,10 +12,12 @@
 }
 @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/jbmono-400.woff2') format('woff2'); }
 @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/jbmono-500.woff2') format('woff2'); }
+@font-face { font-family: 'Caveat'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/caveat-600.woff2') format('woff2'); }
+@font-face { font-family: 'Caveat'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/caveat-700.woff2') format('woff2'); }
 
 @import "tailwindcss";
 
-/* ============ TOKENS — clean SaaS ala referensi Pinterest ============ */
+/* ============ TOKENS — pinboard/moodboard ala referensi baru ============ */
 @theme {
   --color-paper: #ffffff;
   --color-paper2: #f5f7fb;
@@ -46,19 +47,16 @@
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-display: "Clash Display", "Plus Jakarta Sans", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --font-serif: "Clash Display", system-ui, sans-serif; /* legacy — tak lagi dipakai komponen */
+  --font-script: "Caveat", "Comic Sans MS", cursive;
+  --font-serif: "Clash Display", system-ui, sans-serif; /* legacy */
 
   --animate-marquee: marquee 30s linear infinite;
   --animate-spin-slow: rot 14s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-float-late: float 8s ease-in-out 1.2s infinite;
 
-  @keyframes marquee {
-    to { transform: translateX(-50%); }
-  }
-  @keyframes rot {
-    to { transform: rotate(360deg); }
-  }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @keyframes rot { to { transform: rotate(360deg); } }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
@@ -66,22 +64,37 @@
 }
 
 /* ============ BASE ============ */
-html {
-  scroll-padding-top: 96px;
-}
+html { scroll-padding-top: 96px; }
 body {
   @apply bg-paper text-ink font-sans antialiased leading-relaxed;
   overflow-x: clip;
 }
-::selection {
-  background: var(--color-accent);
-  color: #fff;
-}
+::selection { background: var(--color-accent); color: #fff; }
 
+/* glow biru + kertas kotak-kotak */
 .bg-glow {
-  background:
-    radial-gradient(640px 340px at 82% 4%, rgba(47, 107, 255, 0.1), transparent 65%),
-    radial-gradient(520px 300px at 8% 16%, rgba(108, 155, 255, 0.08), transparent 60%);
+  background-image:
+    radial-gradient(640px 340px at 82% 4%, rgba(47, 107, 255, 0.09), transparent 65%),
+    radial-gradient(520px 300px at 8% 16%, rgba(108, 155, 255, 0.07), transparent 60%),
+    linear-gradient(rgba(11, 18, 32, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 18, 32, 0.045) 1px, transparent 1px);
+  background-size: auto, auto, 26px 26px, 26px 26px;
+}
+/* papan kotak-kotak (graph paper) */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(11, 18, 32, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 18, 32, 0.05) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+/* washi tape untuk menempel foto/kartu */
+.tape {
+  position: absolute;
+  width: 92px;
+  height: 24px;
+  background: rgba(47, 107, 255, 0.26);
+  box-shadow: 0 1px 3px rgba(11, 18, 32, 0.1);
+  backdrop-filter: blur(1px);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -96,36 +109,24 @@ body {
   transform: translateY(26px);
   transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
+.reveal.is-visible { opacity: 1; transform: none; }
 .reveal-word {
   display: inline-block;
   opacity: 0;
   transform: translateY(0.9em);
   transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.is-visible .reveal-word {
-  opacity: 1;
-  transform: none;
-}
+.is-visible .reveal-word { opacity: 1; transform: none; }
 
 /* ============ HERO MASK REVEAL ============ */
 .mask-line { overflow: hidden; display: block; }
-.mask-line > span {
-  display: block;
-  transform: translateY(112%);
-  animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
+.mask-line > span { display: block; transform: translateY(112%); animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .mask-line.d1 > span { animation-delay: 1.45s; }
 .mask-line.d2 > span { animation-delay: 1.58s; }
 .mask-line.d3 > span { animation-delay: 1.71s; }
-@keyframes rise {
-  to { transform: none; }
-}
+@keyframes rise { to { transform: none; } }
 
-/* ============ LABEL KECIL (mono — machine voice) ============ */
+/* ============ LABEL KECIL (mono) ============ */
 .tech-label {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -136,36 +137,20 @@ body {
 }
 
 /* ============ PRELOADER ============ */
-.preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  background: var(--color-paper);
-  display: grid;
-  place-items: center;
-}
+.preloader { position: fixed; inset: 0; z-index: 999; background: var(--color-paper); display: grid; place-items: center; }
 
 /* ============ FORM INPUT ============ */
 .input {
   @apply w-full rounded-2xl border border-line bg-paper2 px-5 py-3.5 text-[15px] text-ink outline-none transition
     placeholder:text-ink3 focus:border-accent focus:bg-paper;
 }
-.input-error {
-  @apply border-red-400 focus:border-red-500;
-}
+.input-error { @apply border-red-400 focus:border-red-500; }
 
 /* ============ SCROLLBAR ============ */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-accent) var(--color-paper2);
-}
+html { scrollbar-width: thin; scrollbar-color: var(--color-accent) var(--color-paper2); }
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: var(--color-paper2); }
-::-webkit-scrollbar-thumb {
-  background: var(--color-accent);
-  border-radius: 8px;
-  border: 2px solid var(--color-paper2);
-}
+::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 8px; border: 2px solid var(--color-paper2); }
 
 /* ============ EASTER EGG ============ */
 @keyframes spin-pop {

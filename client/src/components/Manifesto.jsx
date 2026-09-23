@@ -1,4 +1,5 @@
 import { useInView } from './Reveal.jsx';
+import { Spark } from './Doodles.jsx';
 
 /**
  * WordReveal — paragraf muncul kata demi kata saat di-scroll.
@@ -22,7 +23,8 @@ function WordReveal({ text, className = '' }) {
 export default function Manifesto() {
   return (
     <section className="px-5 py-20 sm:px-6 sm:py-28">
-      <div className="mx-auto max-w-5xl rounded-[40px] bg-accentsoft px-6 py-16 sm:px-14 sm:py-24">
+      <div className="relative mx-auto max-w-5xl rounded-[40px] bg-accentsoft px-6 py-16 sm:px-14 sm:py-24">
+        <Spark className="absolute right-8 top-8 w-9 text-accent/70" />
         <p className="tech-label">SEBUAH PERNYATAAN</p>
         <WordReveal
           className="font-display mt-8 text-3xl leading-[1.12] font-medium sm:text-5xl"

@@ -64,9 +64,11 @@ export default function About() {
         <div className="md:sticky md:top-28">
           <Reveal>
             <div className="relative">
-              <div
+              <div className="tape -left-6 -top-2 -rotate-45" aria-hidden="true" />
+                <div className="tape -bottom-2 -right-6 -rotate-12" aria-hidden="true" />
+                <div
                 ref={frameRef}
-                className="relative aspect-[4/5] max-w-sm overflow-hidden rounded-[36px] border border-line bg-paper2 shadow-[0_30px_80px_rgba(11,18,32,.12)]"
+                className="relative aspect-[4/5] max-w-sm -rotate-2 overflow-hidden rounded-[36px] border border-line bg-paper2 shadow-[0_30px_80px_rgba(11,18,32,.12)]"
               >
                 {PHOTO ? (
                   <img
@@ -115,7 +117,7 @@ export default function About() {
           <Reveal delay={80}>
             <p className="tech-label">TENTANG — BUKAN STUDIO, CUMA SAYA</p>
             <h2 className="font-display mt-4 text-3xl font-medium tracking-[-.01em] sm:text-4xl">
-              Kenalan sama <span className="text-accent">Dzul.</span>
+              Kenalan sama <span className="font-script text-[1.12em] text-accent">Dzul.</span>
             </h2>
           </Reveal>
           <Reveal delay={140}>

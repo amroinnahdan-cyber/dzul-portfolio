@@ -4,6 +4,7 @@ import ProjectModal from './ProjectModal.jsx';
 import { fetchProjects } from '../api.js';
 import { fallbackProjects } from '../data/fallbackProjects.js';
 import { ArrowUpRight } from './Decor.jsx';
+import Pin from './Pin.jsx';
 
 const GITHUB_URL = 'https://github.com/amroinnahdan-cyber';
 
@@ -46,7 +47,7 @@ export default function Projects() {
           <div className="text-center">
             <p className="tech-label">PROYEK TERPILIH (06)</p>
             <h2 className="font-display mt-4 text-4xl font-medium tracking-[-.01em] sm:text-5xl">
-              Proyek &amp; <span className="text-accent">eksperimen.</span>
+              Proyek &amp; <span className="font-script text-[1.12em] text-accent">eksperimen.</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[15px] text-ink2">
               Klik kartunya untuk baca cerita di baliknya ↴
@@ -69,7 +70,9 @@ export default function Projects() {
                   tabIndex={0}
                   onClick={() => setOpen(i)}
                   onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setOpen(i)}
-                  className="group flex h-full cursor-pointer flex-col rounded-[28px] border border-line bg-white p-3 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_70px_rgba(11,18,32,.1)]"
+                  className="group relative flex h-full cursor-pointer flex-col rounded-[28px] border border-line bg-white p-3 transition duration-300 odd:-rotate-[1.3deg] even:rotate-[1.1deg] hover:-translate-y-1.5 hover:rotate-0 hover:shadow-[0_28px_70px_rgba(11,18,32,.1)]"
+                  >
+                  <Pin className="absolute -top-3 left-1/2 z-10 w-7 -translate-x-1/2" />
                 >
                   <div className="relative overflow-hidden rounded-[20px] bg-paper2">
                     <img

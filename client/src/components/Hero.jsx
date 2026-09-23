@@ -1,12 +1,15 @@
 import { wibGreeting } from '../utils.js';
 import { useEffect, useState } from 'react';
 import { scrollToHash } from '../utils.js';
+import Pin from './Pin.jsx';
+import { Squiggle } from './Doodles.jsx';
 
 /* --- kartu mockup melayang ala referensi SaaS --- */
 
 function CardProject() {
   return (
-    <div className="absolute left-0 top-6 w-56 rounded-3xl border border-line bg-white p-3.5 shadow-[0_20px_60px_rgba(11,18,32,.1)] animate-float sm:w-64">
+    <div className="absolute left-0 top-6 w-56 -rotate-[4deg] rounded-3xl border border-line bg-white p-3.5 shadow-[0_20px_60px_rgba(11,18,32,.1)] animate-float sm:w-64">
+      <Pin className="absolute -top-4 left-1/2 z-10 w-8 -translate-x-1/2" />
       <div className="flex items-center gap-3">
         <img src="/projects/studio-elevate.png" alt="" className="h-12 w-12 rounded-2xl object-cover" />
         <div>
@@ -24,7 +27,8 @@ function CardProject() {
 
 function CardStat() {
   return (
-    <div className="absolute right-0 top-36 w-48 rounded-3xl border border-line bg-white p-4 shadow-[0_20px_60px_rgba(11,18,32,.1)] animate-float-late sm:top-44 sm:w-56">
+    <div className="absolute right-0 top-36 w-48 rotate-[3deg] rounded-3xl border border-line bg-white p-4 shadow-[0_20px_60px_rgba(11,18,32,.1)] animate-float-late sm:top-44 sm:w-56">
+      <Pin className="absolute -top-4 left-1/2 z-10 w-8 -translate-x-1/2" />
       <p className="tech-label text-[9px]!">AKTIVITAS MINGGU INI</p>
       <div className="mt-3 flex h-16 items-end gap-1.5">
         {[38, 62, 45, 80, 56, 92, 70].map((h, i) => (
@@ -44,7 +48,8 @@ function CardStat() {
 
 function CardChat() {
   return (
-    <div className="absolute bottom-0 left-4 w-52 rounded-3xl border border-line bg-white p-4 shadow-[0_20px_60px_rgba(11,18,32,.1)] animate-float sm:left-10">
+    <div className="absolute bottom-0 left-4 w-52 -rotate-[2.5deg] rounded-3xl border border-line bg-white p-4 shadow-[0_20px_60px_rgba(11,18,32,.1)] animate-float sm:left-10">
+      <Pin className="absolute -top-4 left-1/2 z-10 w-8 -translate-x-1/2" />
       <div className="flex items-center gap-2">
         <span className="relative flex h-2.5 w-2.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
@@ -89,7 +94,7 @@ export default function Hero() {
             <span className="block font-display text-5xl leading-[1.04] font-semibold tracking-[-.01em] sm:text-6xl xl:text-7xl">
               Web yang <span className="text-accent">rapi</span>,
               <br />
-              desain yang <span className="text-accent">nyaman.</span>
+              desain yang <span className="relative inline-block font-script text-accent">nyaman.<Squiggle className="absolute -bottom-1.5 left-0 w-full text-accent" /></span>
             </span>
           </h1>
 

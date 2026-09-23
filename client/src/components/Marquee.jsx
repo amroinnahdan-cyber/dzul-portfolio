@@ -1,19 +1,32 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Marquee — pita teks besar, kecepatan & kemiringan mengikuti scroll.
+ * Marquee — pita teks, kecepatan & kemiringan mengikuti scroll.
+ * Kata bergantian: display uppercase ↔ script biru (vibe scrapbook).
  */
-const items = ['web', 'design', 'ai', 'eksperimen'];
+const items = [
+  ['web', true],
+  ['design', false],
+  ['ai', true],
+  ['eksperimen', false],
+];
 
 function Group() {
   return (
     <div className="flex shrink-0 items-center">
-      {items.map((w) => (
-        <span key={w} className="flex items-center whitespace-nowrap">
-          <span className="font-display px-6 text-3xl font-medium text-ink/80 uppercase sm:px-10 sm:text-5xl">{w}</span>
-          <span className="text-2xl text-accent sm:text-3xl">✦</span>
-        </span>
-      ))}
+      {items.map(([w, script]) =>
+        script ? (
+          <span key={w} className="flex items-center whitespace-nowrap">
+            <span className="px-6 font-script text-5xl text-accent sm:px-10 sm:text-6xl">{w}</span>
+            <span className="text-2xl text-ink/60 sm:text-3xl">✦</span>
+          </span>
+        ) : (
+          <span key={w} className="flex items-center whitespace-nowrap">
+            <span className="px-6 font-display text-3xl font-medium uppercase text-ink/80 sm:px-10 sm:text-5xl">{w}</span>
+            <span className="text-2xl text-accent sm:text-3xl">✦</span>
+          </span>
+        )
+      )}
     </div>
   );
 }
