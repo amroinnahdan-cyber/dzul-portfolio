@@ -4,7 +4,41 @@ import { scrollToHash } from '../utils.js';
 import Pin from './Pin.jsx';
 import { Squiggle } from './Doodles.jsx';
 
-/* --- kartu mockup melayang ala referensi SaaS --- */
+/* ═══════════════════════════════════════════════════════
+   Kata bertumpuk ala poster "Shoot. Edit. Deliver. Repeat."
+   + pill biru yang menimpa tiap baris.
+   ═══════════════════════════════════════════════════════ */
+const WORDS = [
+  { word: 'Ngoding.', pill: 'React · Vite · Tailwind', pillPos: 'right-[2%] top-1/2 -translate-y-[130%] rotate-[-3deg]', icon: '⚡', iconPos: '-left-1 -top-4' },
+  { word: 'Desain.', pill: 'UI/UX · Figma', pillPos: 'right-[10%] top-1/2 -translate-y-[120%] rotate-[2.5deg]', icon: '🎨', iconPos: '-right-2 -top-5' },
+  { word: 'Deploy.', pill: 'Vercel · GitHub', pillPos: 'right-[4%] top-1/2 -translate-y-[125%] rotate-[-2deg]', icon: '🚀', iconPos: '-left-2 -top-4' },
+  { word: 'Ulangi.', pill: 'Satu proyek / minggu', pillPos: 'right-[14%] top-1/2 -translate-y-[130%] rotate-[3deg]', icon: null, iconPos: '' },
+];
+
+function StackLine({ item, index }) {
+  return (
+    <span className="relative block">
+      {/* kata raksasa */}
+      <span className="font-display inline-block leading-[0.98] tracking-[-.015em]">{item.word}</span>
+
+      {/* pill biru menimpa (ala poster) */}
+      <span
+        className={`absolute z-10 whitespace-nowrap rounded-full bg-accent px-3 py-1.5 text-[9px] font-bold text-white shadow-[0_8px_24px_rgba(47,107,255,.4)] sm:px-4 sm:py-2 sm:text-xs ${item.pillPos}`}
+      >
+        {item.pill}
+      </span>
+
+      {/* ikon kecil melayang */}
+      {item.icon && (
+        <span className={`absolute hidden animate-float text-3xl lg:block xl:text-4xl ${item.iconPos}`} style={{ animationDelay: `${index * 0.9}s` }}>
+          {item.icon}
+        </span>
+      )}
+    </span>
+  );
+}
+
+/* --- kartu mockup melayang ala moodboard (dengan pushpin) --- */
 
 function CardProject() {
   return (
@@ -32,11 +66,7 @@ function CardStat() {
       <p className="tech-label text-[9px]!">AKTIVITAS MINGGU INI</p>
       <div className="mt-3 flex h-16 items-end gap-1.5">
         {[38, 62, 45, 80, 56, 92, 70].map((h, i) => (
-          <div
-            key={i}
-            className={`flex-1 rounded-t-lg ${i === 5 ? 'bg-accent' : 'bg-accentsoft'}`}
-            style={{ height: `${h}%` }}
-          />
+          <div key={i} className={`flex-1 rounded-t-lg ${i === 5 ? 'bg-accent' : 'bg-accentsoft'}`} style={{ height: `${h}%` }} />
         ))}
       </div>
       <p className="mt-2.5 text-[13px] font-semibold">
@@ -65,8 +95,8 @@ function CardChat() {
 }
 
 /**
- * Hero — clean SaaS ala referensi: kiri teks + CTA pill,
- * kanan kolase kartu UI melayang.
+ * Hero — gabungan 2 referensi: kata bertumpuk + pill menimpa (poster
+ * Shoot.Edit.Deliver) × kartu pushpin melayang (moodboard).
  */
 export default function Hero() {
   const [greet, setGreet] = useState('');
@@ -78,8 +108,8 @@ export default function Hero() {
 
   return (
     <section id="beranda" className="bg-glow px-5 pt-32 pb-16 sm:px-6 sm:pt-40 sm:pb-20">
-      <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.15fr_1fr]">
-        {/* kiri — teks */}
+      <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.2fr_1fr]">
+        {/* kiri — poster kata bertumpuk */}
         <div>
           <div className="mask-line d1">
             <span>
@@ -90,20 +120,20 @@ export default function Hero() {
             </span>
           </div>
 
-          <h1 className="mask-line d2 mt-6">
-            <span className="block font-display text-5xl leading-[1.04] font-semibold tracking-[-.01em] sm:text-6xl xl:text-7xl">
-              Web yang <span className="text-accent">rapi</span>,
-              <br />
-              desain yang <span className="relative inline-block font-script text-accent">nyaman.<Squiggle className="absolute -bottom-1.5 left-0 w-full text-accent" /></span>
+          <h1 className="mask-line d2 mt-8">
+            <span className="block text-[17vw] font-semibold sm:text-6xl xl:text-[5.2rem]">
+              {WORDS.map((w, i) => (
+                <StackLine key={w.word} item={w} index={i} />
+              ))}
             </span>
           </h1>
 
-          <p className="mask-line d3 mt-6">
+          <p className="mask-line d3 mt-9">
             <span className="block max-w-md text-[15px] leading-relaxed text-ink2 sm:text-base">
               Saya <b className="font-medium text-ink">Dzul Amroin Nahdan</b> — membangun{' '}
               <b className="font-medium text-ink">web</b>, merancang{' '}
               <b className="font-medium text-ink">pengalaman</b>, dan mengeksplorasi{' '}
-              <b className="font-medium text-ink">AI</b>. Satu proyek kecil setiap minggu.
+              <b className="font-medium text-ink">AI</b>.
             </span>
           </p>
 
@@ -120,19 +150,11 @@ export default function Hero() {
             >
               Hubungi Saya
             </button>
-          </div>
-
-          {/* chips keahlian */}
-          <div className="mt-10 flex flex-wrap gap-2">
-            {['Frontend Developer', 'UI/UX Enthusiast', 'AI Learner'].map((c) => (
-              <span key={c} className="rounded-full bg-paper2 px-4 py-2 text-xs font-medium text-ink2">
-                {c}
-              </span>
-            ))}
+            <span className="font-script text-2xl text-accent">let's roll →</span>
           </div>
         </div>
 
-        {/* kanan — kolase kartu melayang */}
+        {/* kanan — kolase kartu pushpin */}
         <div className="relative mx-auto h-[420px] w-full max-w-sm sm:h-[460px]">
           <div className="absolute inset-0 rounded-[48px] bg-accentsoft/60 blur-2xl" aria-hidden="true" />
           <CardProject />
